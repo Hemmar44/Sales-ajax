@@ -8,7 +8,7 @@ $sales = new Sale($database);
 
 //print_r($_POST);
 
-$stringColumns = ["name", "product", "institution", "advisor", "date"];
+$stringColumns = ["name", "product", "institution", "advisor"];
 $integerColumns = ["amount", "margin", "commission"];
 
 $column = lcfirst($_POST["column"]);
@@ -32,9 +32,7 @@ if(empty($column) || $column === "choose..."){
 
 	//string data received
 if(in_array($column, $stringColumns)) {
-	if($column==='date') {
-		echo date("Y-m-d H:i:s", strtotime($value));
-	}
+	
 	//"completed === All empty value";
 	if($completed === "All" && empty($value)) {
 		$tableRow = $sales->database()->selectAll("sales");
@@ -55,7 +53,6 @@ if(in_array($column, $stringColumns)) {
 		$tableRow = $sales->database()->selectAndLike("sales", "completed", $completed, $column, $value);
 		echo "completed !== All not empty value";
 	}
-
 
 }
 
@@ -96,6 +93,13 @@ if(in_array($column, $integerColumns)) {
 		
 }
 
+if($column === "date") {
+		
+		$value = date("Y-m-d", strtotime($value));
+		$tableRow = $sales->database()->selectOr("sales", ["date" => $value]);
+		
+	}
+
 
 $data = '';
 
@@ -114,7 +118,7 @@ foreach ($tableRow as $tableCell) {
 	$data .= "<td class='Date'>". date('F Y', strtotime($tableCell['date'])) ."</td>";
 	$data .= "</tr>";
 }
-//date('F Y', strtotime($sale['date'])
+
 
 echo $data;
 

@@ -8,6 +8,8 @@ $sale = new Sale($database);
 //$submit = '';
 $messageTrue = "New customer has been added";
 $messageFalse = "Something was wrong";
+$date = "";
+$day = "01";
 
 if($sale->database()->submitted()) {
 
@@ -19,10 +21,13 @@ if($sale->database()->submitted()) {
 	"advisor" => $_POST["advisor"],
 	"margin" => floatval($_POST["margin"]),
 	"completed" => $sale->database()->checkCompleted(),
-	"commission" => floatval($_POST["commission"])
+	"commission" => floatval($_POST["commission"]),
+	"date" => date('Y-m-'.$day)
 	]);
-	
+
 }
+
+
 
 
 
