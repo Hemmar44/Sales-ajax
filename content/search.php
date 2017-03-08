@@ -79,7 +79,7 @@
 			  		<div id="byMargin" class="search">
 			  			<label class="sr-only" for="minMargin"></label>
 			  			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="minMargin" name="minMargin" placeholder="min" value="0">
-			  			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="maxMargin" name="maxMargin" placeholder="max" value="1">
+			  			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="maxMargin" name="maxMargin" placeholder="max" value="100">
 			  		</div>
 
 			  		<div id="byCommission" class="search">

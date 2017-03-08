@@ -33,6 +33,34 @@ class Database {
             return $_one = $stmt->fetch();
     }
 
+    public function selectLike($tableName, $name, $search) {
+            $search = "%$search%";
+            $stmt  = $this->_pdo->prepare("SELECT * FROM $tableName WHERE $name LIKE ?");
+            $stmt->execute([$search]);
+            return $data = $stmt->fetchAll();
+    }
+
+    public function selectBetween($tableName, $name, $min, $max) {
+            
+            $stmt  = $this->_pdo->prepare("SELECT * FROM $tableName WHERE $name BETWEEN ? AND ?");
+            $stmt->execute([$min, $max]);
+            return $data = $stmt->fetchAll();
+    }
+
+    public function selectAndLike($tableName, $strictName, $strict , $searchName, $search) {
+            $search = "%$search%";
+            $stmt  = $this->_pdo->prepare("SELECT * FROM $tableName WHERE $strictName = ? AND $searchName LIKE ?");
+            $stmt->execute([$strict, $search]);
+            return $data = $stmt->fetchAll();
+    }
+
+    public function selectAndBetween($tableName, $strictName, $strict , $minmaxName, $min, $max) {
+            
+            $stmt  = $this->_pdo->prepare("SELECT * FROM $tableName WHERE $strictName = ? AND $minmaxName BETWEEN ? AND ?");
+            $stmt->execute([$strict, $min, $max]);
+            return $data = $stmt->fetchAll();
+    }
+
     public function selectDistinct($tableName, $header) {
             $stmt = $this->_pdo->query("SELECT DISTINCT {$header} FROM {$tableName}");
             return $_all = $stmt->fetchAll();

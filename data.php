@@ -21,7 +21,7 @@ include("layouts/header.php");
 
 		<?php 
 
-		include("content/searchAjax.php");
+		include("content/search.php");
 
 		include("content/table.php");
 
