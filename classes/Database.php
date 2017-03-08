@@ -83,6 +83,24 @@ class Database {
             $stmt->execute(array_values($names));
             return $user = $stmt->fetchAll();
     }
+
+    public function selectOrAnd($tableName, $orand, $names = array()) {
+            $set = '';
+            $x=1;
+            //creating name = ? pairs
+                foreach($names as $name => $value) {
+                $set .= "{$name} = ?";
+                //adding comma strings
+                if($x < count($names)){
+                    $set .= ' '. $orand .' ';
+                }
+                $x++;
+            }
+            $sql = "SELECT * FROM {$tableName} WHERE {$set} ";
+            $stmt = $this->_pdo->prepare($sql);
+            $stmt->execute(array_values($names));
+            return $user = $stmt->fetchAll();
+    }
     
     public function selectSingle($tableName, $field, $names = array()) {
             $set = '';

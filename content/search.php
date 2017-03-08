@@ -44,7 +44,7 @@
 					<div id="byProduct" class="search">
 			  			
 			  			<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="searchByProduct">
-	    					<option selected>Choose...</option>
+	    					<option selected value="">Choose...</option>
 
 	    					<?php foreach($sale->database()->selectDistinct("sales", "product") as $product): ?>
 
@@ -61,7 +61,7 @@
 			  			
 			  		<div id="byAdvisor" class="search">
 	  					<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="searchByAdvisor">
-	    					<option selected value="Choose...">Choose...</option>
+	    					<option selected value="">Choose...</option>
 	    					<?php foreach($sale->database()->selectDistinct("sales", "advisor") as $sale): ?>
 
 	    					<option value="<?= $sale['advisor']; ?>"><?= $sale['advisor']; ?></option>
@@ -90,7 +90,7 @@
 
 			  		<div id="byDate" class="search">
 	  					<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="searchByDate">
-	    					<option selected>Choose...</option>
+	    					<option value="" selected>Choose...</option>
 	    					<?php foreach($months as $month): ?>
 
 	    					<option value="<?= $month['month']; ?>"><?= $month['month']; ?></option>

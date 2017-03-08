@@ -81,6 +81,7 @@ if(in_array($column, $integerColumns)) {
 		}
 	}
 	else {
+
 		//"completed not All not numeric min or max";
 		if(!is_numeric($min) || !is_numeric($max)) {
 		$tableRow = $sales->database()->selectOr("sales", ["completed" => $completed]);
@@ -94,13 +95,28 @@ if(in_array($column, $integerColumns)) {
 }
 
 if($column === "date") {
+		//if(empty($value)){echo "empty";}
+		if($completed === "All" && empty($value)) {
+		$tableRow = $sales->database()->selectAll("sales");
+		}
 		
+		else if($completed !== "All" && empty($value)) {
+		$tableRow = $sales->database()->selectOr("sales", ["completed" => $completed]);
+		
+		}
+		
+		else if($completed === "All" && !empty($value)){
 		$value = date("Y-m-d", strtotime($value));
 		$tableRow = $sales->database()->selectOr("sales", ["date" => $value]);
-		
+		}
+
+		else {
+		$value = date("Y-m-d", strtotime($value));
+		$tableRow = $sales->database()->selectOrAnd("sales", "AND", ["date" => $value, "completed" => $completed]);
+
+		}
 	}
-
-
+	
 $data = '';
 
 
