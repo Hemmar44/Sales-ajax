@@ -51,7 +51,7 @@ if(in_array($column, $stringColumns)) {
 	else {
 	//completed on yes or no and some value in string input
 		$tableRow = $sales->database()->selectAndLike("sales", "completed", $completed, $column, $value);
-		echo "completed !== All not empty value";
+		
 	}
 
 }
