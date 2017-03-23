@@ -2,7 +2,10 @@
 
 require_once 'classes/Sale.php';
 
+
 $sale = new Sale($database);
+
+
 
 $sales = [];
 
@@ -17,7 +20,6 @@ $months = $sale->database()->selectDistinct("sales", $date);
 include("layouts/header.php");
 ?>		
 		<div class=col-md-12>
-		
 
 		<?php 
 

@@ -7,6 +7,43 @@ $(function(){
 		var inputValue = "";
 		var min = 0;
 		var max = 0;
+		var get = 1;
+
+		console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    	console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
+    	//on load call	
+    	$.ajax({
+  			method: "POST",
+  			url: "ajax/Getdata.php",
+  			context: this,
+  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max, get:1},
+			success: function( msg ) {
+    		var array = msg.split("||");
+    		$("#dataTable tbody").html(array[0]).show();
+    		$("#links").html(array[1]);
+    		}
+    	});
+    	//on change links
+		$("#links").on("click", "a", function() {
+			get = $(this).attr("data");
+			console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    		console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
+			$.ajax({
+  			method: "POST",
+  			url: "ajax/Getdata.php",
+  			context: this,
+  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max, get:get},
+			success: function( msg ) {
+    		var array = msg.split("||");
+    		$("#dataTable tbody").html(array[0]).show();
+    		$("#links").html(array[1]);
+    		}
+
+    	});
+			 
+		});
+
+		
 
 
 		$(".yesorno").on("change", function(){
@@ -15,45 +52,51 @@ $(function(){
         		$("#dataTable tbody").hide();
         			switch(yesornoValue) {
     				case "No":
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
     				$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max},
+			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}
 			    	});
 
        				break;
 
     				case "Yes":
-
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
     				$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max},
+			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}	
 			    	});
     				
         			break;
     				
     				default:
-    				//alert(globalValue);
-    				//alert(inputValue);
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
     				$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max},
+			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:min, max:max, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			  			
 		  				}
   					})
@@ -193,14 +236,17 @@ $(function(){
     			$("#searchBy" + globalValue).keyup(function(){
     				$("#dataTable tbody").hide();
     				inputValue = $(this).val();
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
 					$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min: 0, max: 0},
+			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min: 0, max: 0, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}
 			    	});
 				});
@@ -208,14 +254,17 @@ $(function(){
 				$("#searchBy" + globalValue).change(function(){
     				$("#dataTable tbody").hide();
     				inputValue = $(this).val();
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
 					$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:0, max:0},
+			  			data: { column: globalValue, value: inputValue, completed: yesornoValue, min:0, max:0, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}
 			    	});
 				});
@@ -224,15 +273,17 @@ $(function(){
     				$("#dataTable tbody").hide();
     				min = $(this).val();
     				max = $("#max" + globalValue).val();
-    				
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
 					$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value:"", completed: yesornoValue, min: min, max: max},
+			  			data: { column: globalValue, value:"", completed: yesornoValue, min: min, max: max, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}
 			    	
 			    	});
@@ -243,15 +294,17 @@ $(function(){
     				$("#dataTable tbody").hide();
     				min = $("#min" + globalValue).val();
     				max = $(this).val();
-    				
+    				console.log("yesornovalue = " + yesornoValue + ", globalValue = " + globalValue + ", min = " + min);
+    				console.log("min = " + min + ", inputValue = " + inputValue + ", get = " + get);
 					$.ajax({
 			  			method: "POST",
 			  			url: "ajax/Getdata.php",
 			  			context: this,
-			  			data: { column: globalValue, value:"", completed: yesornoValue, min: min, max: max},
+			  			data: { column: globalValue, value:"", completed: yesornoValue, min: min, max: max, get:1},
 						success: function( msg ) {
-			    		//alert(msg)
-			    		$("#dataTable tbody").html(msg).show();
+			    		var array = msg.split("||");
+    					$("#dataTable tbody").html(array[0]).show();
+    					$("#links").html(array[1]);
 			    		}
 			    	
 			    	});
@@ -294,12 +347,20 @@ $(function(){
     		$(".message").delay(5000).fadeOut();
 
 		
-
-
+    		
+    		
+    			
+    			
+    		
 
 });
 		
         	
+
+        	
+        	
+        	
+
 
 
 

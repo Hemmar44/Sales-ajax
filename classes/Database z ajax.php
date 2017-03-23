@@ -19,19 +19,12 @@ class Database {
             $this->_pdo = new PDO($dsn, DB_USER, DB_PASS, $opt);
     }
     
-    public function selectAll($tableName, $order = '', $limit = '', $offset = '') {
+    public function selectAll($tableName) {
             //select all elements form database
-            $stmt = $this->_pdo->query("SELECT * FROM {$tableName} {$order} {$limit} {$offset}");
-            return $this->_all = $stmt->fetchAll();
+            $stmt = $this->_pdo->query("SELECT * FROM {$tableName}");
+            return $_all = $stmt->fetchAll();
     }
 
-    public function count($tableName) {
-
-            $stmt = $this->_pdo->query("SELECT COUNT(*) AS count FROM {$tableName}");
-            return $this->_count = $stmt->fetch();
-
-    }
-    
     public function selectOne($tableName, $name, $value) {
             //select array of one user by id, nick, email and so on.
             $sql = "SELECT * FROM {$tableName} WHERE {$name} = :{$name}";

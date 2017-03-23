@@ -14,22 +14,8 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	
-			  	<?php foreach($sales as $sale): ?>
-			  		<tr class="rows">
-			  		<td class="id"><?= $sale['id']; ?></td>
-			  		<td class="Name"><?= $sale['name']; ?></td>
-			  		<td class="Product"><?= $sale['product']; ?></td>
-			  		<td class="Institution"><?= $sale['institution']; ?></td>
-			  		<td class="Amount"><?= $sale['amount']; ?></td>
-			  		<td class="Advisor"><?= $sale['advisor']; ?></td>
-			  		<td class="Margin"><?= $sale['margin']; ?></td>
-			  		<td class="Commission"><?= $sale['commission']; ?></td>
-			  		<td class="Completed"><?= $sale['completed']; ?></td>
-			  		<td class="Date"><?= date('F Y', strtotime($sale['date'])); ?></td>
-			  		</tr>
-				<?php endforeach; ?>
-			   
+			  	<!--ajax call-->
 			  </tbody>
 			</table>
+	<div id="links"></div>
 <div id='fixed'></div>

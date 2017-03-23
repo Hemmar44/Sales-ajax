@@ -1,8 +1,9 @@
 <?php
 
 require_once '/../classes/Sale.php';
+require_once '/../classes/Pagination.php';
 
-
+//sort the get out something is wrong with it
 
 $sales = new Sale($database); 
 
@@ -116,10 +117,58 @@ if($column === "date") {
 
 		}
 	}
-	
+
+$page =(int)$_POST["get"];
+$total_count = count($tableRow);
+$per_page = 10;
+
 $data = '';
+$links = '';
 
+$pagination = new Pagination($page, $per_page, $total_count);
 
+if($pagination->total_pages() > 1) {
+	$tableRows = array_chunk($tableRow, $per_page);
+		if(array_key_exists($page - 1 , $tableRows)) {
+			foreach ($tableRows[$page - 1] as $tableCell) {
+				$data .= "<tr class='rows'>";
+				$data .= "<td class='id'>{$tableCell['id']}</td>";
+				$data .= "<td class='Name'>{$tableCell['name']}</td>";
+				$data .= "<td class='Product'>{$tableCell['product']}</td>";
+				$data .= "<td class='Institution'>{$tableCell['institution']}</td>";
+				$data .= "<td class='Amount'>{$tableCell['amount']}</td>";
+				$data .= "<td class='Advisor'>{$tableCell['advisor']}</td>";
+				$data .= "<td class='Margin'>{$tableCell['margin']}</td>";
+				$data .= "<td class='Commission'>{$tableCell['commission']}</td>";
+				$data .= "<td class='Completed'>{$tableCell['completed']}</td>";
+				$data .= "<td class='Date'>". date('F Y', strtotime($tableCell['date'])) ."</td>";
+				$data .= "</tr>";
+			};
+
+			if ($pagination->has_previous_page()) {
+				$links .= "<a href='#' data={$pagination->previous_page()}>previous </a>";
+			} 
+
+			for($i=1; $i <= $pagination->total_pages(); $i++) {
+				if ($i == $pagination->current_page()) {
+		    	$links .= "<span>{$i}</span> ";
+		    	}
+		    	else {
+		    	$links .= "<a href='#' data={$i}>{$i}</a> ";
+		    	}
+		    
+			}
+
+			if ($pagination->has_next_page()) {
+				$links .= "<a href='#' data={$pagination->next_page()}> next</a>";
+			}
+			
+
+		}
+
+}
+
+else {
 foreach ($tableRow as $tableCell) {
 	$data .= "<tr class='rows'>";
 	$data .= "<td class='id'>{$tableCell['id']}</td>";
@@ -134,9 +183,9 @@ foreach ($tableRow as $tableCell) {
 	$data .= "<td class='Date'>". date('F Y', strtotime($tableCell['date'])) ."</td>";
 	$data .= "</tr>";
 }
+}
 
-
-echo $data;
+echo $data. "||" . $links;
 
 
 
